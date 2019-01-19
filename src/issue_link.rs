@@ -1,7 +1,8 @@
 use regex::Regex;
+use serde_derive::*;
 use url::percent_encoding::{utf8_percent_encode, QUERY_ENCODE_SET};
 
-#[derive(Eq, PartialEq, Debug)]
+#[derive(Eq, PartialEq, Debug, Serialize, Deserialize)]
 pub struct IssueLink {
     repository: String,
     title: String,
