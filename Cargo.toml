@@ -6,6 +6,7 @@ name = "menbei"
 version = "0.1.0"
 [dependencies]
 clap = "*"
+failure = "*"
 regex = "*"
 serde = "*"
 serde_derive = "*"
