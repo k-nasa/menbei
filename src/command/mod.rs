@@ -1,13 +1,24 @@
-use clap::*;
 mod dialogure;
 mod template;
 
+use crate::issue_link::IssueLink;
+use clap::{crate_description, crate_name, crate_version, Arg, SubCommand};
+use failure::Fail;
+use std::ffi::OsStr;
+use std::fs::read_to_string;
+use std::path::Path;
+
 type App = clap::App<'static, 'static>;
+
+#[derive(Debug, Fail)]
+#[fail(display = "Unsupported extension")]
+struct UnsupportedExtension;
 
 pub fn run() {
     let matches = build_app().get_matches();
 
-    if matches.is_present("file") {
+    if let Some(filename) = matches.value_of("file") {
+        from_file(&filename).unwrap_or_else(|e| eprintln!("{}", e));
         return;
     }
 
