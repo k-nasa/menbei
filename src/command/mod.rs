@@ -1,11 +1,21 @@
 use clap::*;
+mod dialogure;
+mod template;
 
 type App = clap::App<'static, 'static>;
 
 pub fn run() {
-    let mut app = build_app();
+    let matches = build_app().get_matches();
 
-    app.print_help().expect("failed to print_help");
+    if matches.is_present("file") {
+        return;
+    }
+
+    match matches.subcommand() {
+        ("dialogure", _) => (),
+        ("template", _) => (),
+        _ => build_app().print_help().expect("failed to print_help"),
+    }
 }
 
 fn build_app() -> App {
