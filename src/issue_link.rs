@@ -180,4 +180,21 @@ mod tests {
 
         assert_eq!(link, Ok("https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string()))
     }
+
+    #[test]
+    fn from_toml() {
+        let yaml = r#"
+            repository = "k-nasa/menbei"
+            title = "title"
+            body = "hogehoge"
+            assignees = ["k-nasa", "hoge"]
+            labels = ["bug", "question"]
+            projects = ["k-nasa/menbei/1"]
+        "#;
+
+        let issue_link: IssueLink = toml::from_str(&yaml).unwrap();
+        let link = issue_link.generate_link();
+
+        assert_eq!(link, Ok("https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string()))
+    }
 }
