@@ -23,6 +23,9 @@ fn build_app() -> App {
         .version(crate_version!())
         .about(crate_description!())
         .arg(Arg::with_name("file"))
-        .subcommand(SubCommand::with_name("dialogure"))
-        .subcommand(SubCommand::with_name("template"))
+        .subcommand(SubCommand::with_name("dialogure").about("Create an issue link interactively"))
+        .subcommand(
+            SubCommand::with_name("template")
+                .about("Output a template file for creating an issue link"),
+        )
 }
