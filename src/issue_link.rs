@@ -8,6 +8,33 @@ pub struct IssueLink {
     projects: Vec<String>,
 }
 
+impl IssueLink {
+    pub fn new<T: ToString>(
+        repository: T,
+        title: T,
+        body: T,
+        assignees: Vec<T>,
+        labels: Vec<T>,
+        projects: Vec<T>,
+    ) -> Self {
+        let repository = repository.to_string();
+        let title = title.to_string();
+        let body = body.to_string();
+        let assignees = assignees.iter().map(|x| x.to_string()).collect();
+        let labels = labels.iter().map(|x| x.to_string()).collect();
+        let projects = projects.iter().map(|x| x.to_string()).collect();
+
+        IssueLink {
+            repository,
+            title,
+            body,
+            assignees,
+            labels,
+            projects,
+        }
+    }
+}
+
 impl Default for IssueLink {
     fn default() -> Self {
         IssueLink {
