@@ -4,4 +4,6 @@ edition = "2018"
 name = "menbei"
 version = "0.1.0"
 [dependencies]
+clap = "*"
 regex = "*"
+url = "*"
