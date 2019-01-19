@@ -37,14 +37,7 @@ impl IssueLink {
     }
 
     pub fn generate_link(&self) -> Result<String, String> {
-        if self.repository.is_empty() {
-            return Err("repository is required!".to_string());
-        }
-
-        let repo_pattern = Regex::new(r".*/.*").unwrap();
-        if !repo_pattern.is_match(&self.repository) {
-            return Err("repository is invalid!".to_string());
-        }
+        self.validate_issue_link()?;
 
         let prefix = format!("https://github.com/{}/issues/new", self.repository);
         let title = format!("title={}", self.title);
@@ -58,6 +51,19 @@ impl IssueLink {
             "{}?{}&{}&{}&{}&{}",
             prefix, title, body, assignees, labels, projects
         ))
+    }
+
+    fn validate_issue_link(&self) -> Result<(), String> {
+        if self.repository.is_empty() {
+            return Err("repository is required!".to_string());
+        }
+
+        let repo_pattern = Regex::new(r".*/.*").unwrap();
+        if !repo_pattern.is_match(&self.repository) {
+            return Err("repository is invalid!".to_string());
+        }
+
+        Ok(())
     }
 }
 
