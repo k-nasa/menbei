@@ -160,7 +160,7 @@ mod tests {
     }
 
     #[test]
-    fn fron_yaml() {
+    fn from_yaml() {
         let yaml = r#"
             repository: k-nasa/menbei
             title: title
