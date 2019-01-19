@@ -1,9 +1,12 @@
 [package]
 authors = ["nasa <htilcs1115@gmail.com>"]
+description = "Tool to generate github issue link"
 edition = "2018"
 name = "menbei"
 version = "0.1.0"
 [dependencies]
 clap = "*"
 regex = "*"
+serde = "*"
+serde_derive = "*"
 url = "*"
