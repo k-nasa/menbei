@@ -8,6 +8,20 @@ pub struct IssueLink {
     projects: Vec<String>,
 }
 
+impl Default for IssueLink {
+    fn default() -> Self {
+        IssueLink {
+            organization: None,
+            repository: None,
+            title: None,
+            body: None,
+            assignees: Vec::new(),
+            labels: Vec::new(),
+            projects: Vec::new(),
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
