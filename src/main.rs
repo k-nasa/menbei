@@ -1,3 +1,6 @@
+mod command;
+mod issue_link;
+
 fn main() {
-    println!("Hello, world!");
+    command::run()
 }
