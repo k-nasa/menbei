@@ -46,7 +46,18 @@ impl IssueLink {
             return Err("repository is invalid!".to_string());
         }
 
-        Ok("https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string())
+        let prefix = format!("https://github.com/{}/issues/new", self.repository);
+        let title = format!("title={}", self.title);
+        let body = format!("body={}", self.body);
+
+        let assignees = format!("assignees={}", self.assignees.join(","));
+        let labels = format!("labels={}", self.labels.join(","));
+        let projects = format!("projects={}", self.projects.join(","));
+
+        Ok(format!(
+            "{}?{}&{}&{}&{}&{}",
+            prefix, title, body, assignees, labels, projects
+        ))
     }
 }
 
