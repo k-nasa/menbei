@@ -1,9 +1,14 @@
 [package]
-authors = ["nasa <htilcs1115@gmail.com>"]
-description = "Tool to generate github issue link"
-edition = "2018"
 name = "menbei"
 version = "0.1.0"
+authors = ["k-nasa <htilcs1115@gmail.com>"]
+repository = "https://github.com/k-nasa/menbei"
+description = "Tool to generate github issue link"
+license-file = "LICENSE"
+readme = "README.md"
+keywords = ["cli"]
+edition = "2018"
+
 [dependencies]
 clap = "*"
 failure = "*"
