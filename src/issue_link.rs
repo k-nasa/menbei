@@ -35,6 +35,10 @@ impl IssueLink {
     }
 
     pub fn generate_link(&self) -> Result<String, String> {
+        if self.repository.is_empty() {
+            return Err("repository is required!".to_string());
+        }
+
         Ok("https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string())
     }
 }
@@ -74,6 +78,7 @@ mod tests {
     #[test]
     fn generator_issue_link_repository_is_must() {
         let repository = "";
+
         let title = "title";
         let body = "nogenoge";
         let assignees = vec!["k-nasa", "hoge"];
