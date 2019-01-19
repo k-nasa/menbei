@@ -1,4 +1,5 @@
 use regex::Regex;
+use url::percent_encoding::{utf8_percent_encode, QUERY_ENCODE_SET};
 
 #[derive(Eq, PartialEq, Debug)]
 pub struct IssueLink {
@@ -38,7 +39,9 @@ impl IssueLink {
 
     pub fn print_link(&self) -> Result<(), String> {
         let link = self.generate_link()?;
+        let link = utf8_percent_encode(&link, QUERY_ENCODE_SET).to_string();
         println!("{}", link);
+
         Ok(())
     }
 
