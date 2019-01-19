@@ -12,7 +12,7 @@ pub fn run() {
     }
 
     match matches.subcommand() {
-        ("dialogure", _) => (),
+        ("dialogure", _) => dialogure::exec(),
         ("template", _) => (),
         _ => build_app().print_help().expect("failed to print_help"),
     }
