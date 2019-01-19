@@ -77,7 +77,7 @@ mod tests {
 
     #[test]
     fn generator_issue_link_repository_is_must() {
-        let repository = "";
+        let empty_repository = "";
 
         let title = "title";
         let body = "nogenoge";
@@ -85,7 +85,7 @@ mod tests {
         let labels = vec!["bug", "question"];
         let projects = vec!["k-nasa/menbei/1"];
 
-        let issue_link = IssueLink::new(repository, title, body, assignees, labels, projects);
+        let issue_link = IssueLink::new(empty_repository, title, body, assignees, labels, projects);
         let link = issue_link.generate_link();
 
         assert_eq!(link, Err("repository is required!".to_string()));
