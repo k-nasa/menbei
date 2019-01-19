@@ -33,6 +33,10 @@ impl IssueLink {
             projects,
         }
     }
+
+    pub fn generate_link(&self) -> Result<String, String> {
+        Ok("https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string())
+    }
 }
 
 impl Default for IssueLink {
