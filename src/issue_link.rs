@@ -1,7 +1,8 @@
 use regex::Regex;
+use serde_derive::*;
 use url::percent_encoding::{utf8_percent_encode, QUERY_ENCODE_SET};
 
-#[derive(Eq, PartialEq, Debug)]
+#[derive(Eq, PartialEq, Debug, Serialize, Deserialize)]
 pub struct IssueLink {
     repository: String,
     title: String,
@@ -156,5 +157,44 @@ mod tests {
                 projects: Vec::new(),
             }
         );
+    }
+
+    #[test]
+    fn from_yaml() {
+        let yaml = r#"
+            repository: k-nasa/menbei
+            title: title
+            body: hogehoge
+            assignees:
+                - k-nasa
+                - hoge
+            labels:
+                - bug
+                - question
+            projects:
+                - k-nasa/menbei/1
+        "#;
+
+        let issue_link: IssueLink = serde_yaml::from_str(&yaml).unwrap();
+        let link = issue_link.generate_link();
+
+        assert_eq!(link, Ok("https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string()))
+    }
+
+    #[test]
+    fn from_toml() {
+        let yaml = r#"
+            repository = "k-nasa/menbei"
+            title = "title"
+            body = "hogehoge"
+            assignees = ["k-nasa", "hoge"]
+            labels = ["bug", "question"]
+            projects = ["k-nasa/menbei/1"]
+        "#;
+
+        let issue_link: IssueLink = toml::from_str(&yaml).unwrap();
+        let link = issue_link.generate_link();
+
+        assert_eq!(link, Ok("https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string()))
     }
 }
