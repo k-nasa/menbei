@@ -71,7 +71,7 @@ mod tests {
     fn generator_issue_link() {
         let repository = "k-nasa/menbei";
         let title = "title";
-        let body = "nogenoge";
+        let body = "hogehoge";
         let assignees = vec!["k-nasa", "hoge"];
         let labels = vec!["bug", "question"];
         let projects = vec!["k-nasa/menbei/1"];
