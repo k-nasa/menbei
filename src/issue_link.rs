@@ -92,6 +92,23 @@ mod tests {
     }
 
     #[test]
+    fn generator_issue_link_repository_is_invalid() {
+        let invalid_repository = "hoge";
+
+        let title = "title";
+        let body = "nogenoge";
+        let assignees = vec!["k-nasa", "hoge"];
+        let labels = vec!["bug", "question"];
+        let projects = vec!["k-nasa/menbei/1"];
+
+        let issue_link =
+            IssueLink::new(invalid_repository, title, body, assignees, labels, projects);
+        let link = issue_link.generate_link();
+
+        assert_eq!(link, Err("repository is invalid!".to_string()));
+    }
+
+    #[test]
     fn issue_link_default() {
         let issue_link = IssueLink::default();
 
