@@ -25,6 +25,7 @@ jobs:
     docker:
       - image: rustlang/rust:nightly
     steps:
+      - checkout
       - restore_cache:
           key: cache
       - run:
@@ -37,6 +38,7 @@ jobs:
     docker:
       - image: rustlang/rust:nightly
     steps:
+      - checkout
       - restore_cache:
           key: cache
       - run:
