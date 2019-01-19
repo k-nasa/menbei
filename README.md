@@ -70,13 +70,13 @@ repository: k-nasa/menbei
 title: title
 body: hogehoge
 assignees:
-- k-nasa
-- hoge
+    - k-nasa
+    - hoge
 labels:
-- bug
-- question
+    - bug
+    - question
 projects:
-- k-nasa/menbei/1
+    - k-nasa/menbei/1
 ```
 
 TOML
