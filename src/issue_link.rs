@@ -53,6 +53,21 @@ mod tests {
     use super::*;
 
     #[test]
+    fn generator_issue_link() {
+        let repository = "k-nasa/menbei";
+        let title = "title";
+        let body = "nogenoge";
+        let assignees = vec!["k-nasa", "hoge"];
+        let labels = vec!["bug", "question"];
+        let projects = vec!["k-nasa/menbei/1"];
+
+        let issue_link = IssueLink::new(repository, title, body, assignees, labels, projects);
+        let link = issue_link.generate_link();
+
+        assert_eq!(link, Ok("https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string()))
+    }
+
+    #[test]
     fn issue_link_default() {
         let issue_link = IssueLink::default();
 
