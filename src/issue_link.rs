@@ -1,5 +1,4 @@
 pub struct IssueLink {
-    organization: Option<String>,
     repository: Option<String>,
     title: Option<String>,
     body: Option<String>,
@@ -11,7 +10,6 @@ pub struct IssueLink {
 impl Default for IssueLink {
     fn default() -> Self {
         IssueLink {
-            organization: None,
             repository: None,
             title: None,
             body: None,
@@ -33,7 +31,6 @@ mod tests {
         assert_eq!(
             issue_link,
             IssueLink {
-                organization: None,
                 repository: None,
                 title: None,
                 body: None,
