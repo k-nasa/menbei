@@ -1,3 +1,5 @@
+use regex::Regex;
+
 #[derive(Eq, PartialEq, Debug)]
 pub struct IssueLink {
     repository: String,
@@ -37,6 +39,11 @@ impl IssueLink {
     pub fn generate_link(&self) -> Result<String, String> {
         if self.repository.is_empty() {
             return Err("repository is required!".to_string());
+        }
+
+        let repo_pattern = Regex::new(r".*/.*").unwrap();
+        if !repo_pattern.is_match(&self.repository) {
+            return Err("repository is invalid!".to_string());
         }
 
         Ok("https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string())
