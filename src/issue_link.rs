@@ -1,7 +1,8 @@
+#[derive(Eq, PartialEq, Debug)]
 pub struct IssueLink {
-    repository: Option<String>,
-    title: Option<String>,
-    body: Option<String>,
+    repository: String,
+    title: String,
+    body: String,
     assignees: Vec<String>,
     labels: Vec<String>,
     projects: Vec<String>,
@@ -10,9 +11,9 @@ pub struct IssueLink {
 impl Default for IssueLink {
     fn default() -> Self {
         IssueLink {
-            repository: None,
-            title: None,
-            body: None,
+            repository: String::new(),
+            title: String::new(),
+            body: String::new(),
             assignees: Vec::new(),
             labels: Vec::new(),
             projects: Vec::new(),
@@ -31,9 +32,9 @@ mod tests {
         assert_eq!(
             issue_link,
             IssueLink {
-                repository: None,
-                title: None,
-                body: None,
+                repository: String::new(),
+                title: String::new(),
+                body: String::new(),
                 assignees: Vec::new(),
                 labels: Vec::new(),
                 projects: Vec::new(),
