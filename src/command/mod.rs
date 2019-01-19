@@ -22,7 +22,7 @@ fn build_app() -> App {
     clap::App::new(crate_name!())
         .version(crate_version!())
         .about(crate_description!())
-        .arg(Arg::with_name("file"))
+        .arg(Arg::with_name("file").help("issue link definition file"))
         .subcommand(SubCommand::with_name("dialogure").about("Create an issue link interactively"))
         .subcommand(
             SubCommand::with_name("template")
