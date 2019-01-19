@@ -36,6 +36,12 @@ impl IssueLink {
         }
     }
 
+    pub fn print_link(&self) -> Result<(), String> {
+        let link = self.generate_link()?;
+        println!("{}", link);
+        Ok(())
+    }
+
     pub fn generate_link(&self) -> Result<String, String> {
         self.validate_issue_link()?;
 
