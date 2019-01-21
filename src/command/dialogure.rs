@@ -1,9 +1,9 @@
-use crate::command::utils::CliError;
+use crate::command::utils::{CliError, CliResult};
 use crate::issue_link::IssueLink;
 use regex::Regex;
 use std::io::{stdin, stdout, Write};
 
-pub fn exec() -> Result<(), CliError> {
+pub fn exec() -> CliResult {
     print_message("Input repository name: ");
     let repository = read::<String>();
 

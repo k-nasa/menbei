@@ -9,7 +9,7 @@ use std::ffi::OsStr;
 use std::fs::read_to_string;
 use std::path::Path;
 
-pub fn run() -> Result<(), CliError> {
+pub fn run() -> CliResult {
     let matches = build_app().get_matches();
 
     if let Some(filename) = matches.value_of("file") {
@@ -25,7 +25,7 @@ pub fn run() -> Result<(), CliError> {
     Ok(())
 }
 
-fn from_file(file_name: &str) -> Result<(), CliError> {
+fn from_file(file_name: &str) -> CliResult {
     let file_content = read_to_string(file_name)?;
 
     let extension = Path::new(file_name).extension();
