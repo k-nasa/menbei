@@ -1,3 +1,4 @@
+use failure::Error;
 use regex::Regex;
 use serde_derive::*;
 use url::percent_encoding::{utf8_percent_encode, QUERY_ENCODE_SET};
@@ -38,7 +39,7 @@ impl IssueLink {
         }
     }
 
-    pub fn print_link(&self) -> Result<(), String> {
+    pub fn print_link(&self) -> Result<(), Error> {
         let link = self.generate_link()?;
         let link = utf8_percent_encode(&link, QUERY_ENCODE_SET).to_string();
         println!("{}", link);
@@ -46,7 +47,7 @@ impl IssueLink {
         Ok(())
     }
 
-    pub fn generate_link(&self) -> Result<String, String> {
+    pub fn generate_link(&self) -> Result<String, Error> {
         self.validate_issue_link()?;
 
         let prefix = format!("https://github.com/{}/issues/new", self.repository);
@@ -63,14 +64,14 @@ impl IssueLink {
         ))
     }
 
-    fn validate_issue_link(&self) -> Result<(), String> {
+    fn validate_issue_link(&self) -> Result<(), Error> {
         if self.repository.is_empty() {
-            return Err("repository is required!".to_string());
+            failure::bail!("repository is required!");
         }
 
         let repo_pattern = Regex::new(r".*/.*").unwrap();
         if !repo_pattern.is_match(&self.repository) {
-            return Err("repository is invalid!".to_string());
+            failure::bail!("repository is invalid!");
         }
 
         Ok(())
