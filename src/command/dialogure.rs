@@ -1,13 +1,14 @@
+use crate::command::utils::{CliError, CliResult};
 use crate::issue_link::IssueLink;
 use regex::Regex;
 use std::io::{stdin, stdout, Write};
 
-pub fn exec() {
+pub fn exec() -> CliResult {
     print_message("Input repository name: ");
     let repository = read::<String>();
 
     if !validate_issue_link(&repository) {
-        return println!("repository is invalid!");
+        return Err(CliError::InvalidRepository);
     }
 
     print_message("Input title: ");
@@ -27,10 +28,9 @@ pub fn exec() {
 
     let issue_link = IssueLink::new(repository, title, body, assignees, labels, projects);
 
-    match issue_link.print_link() {
-        Ok(_) => (),
-        Err(e) => eprintln!("{}", e),
-    }
+    issue_link.print_link()?;
+
+    Ok(())
 }
 
 fn print_message(s: &str) {

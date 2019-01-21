@@ -1,30 +1,31 @@
 mod dialogure;
 mod template;
+mod utils;
 
+use self::utils::*;
 use crate::issue_link::IssueLink;
 use clap::{crate_description, crate_name, crate_version, Arg, SubCommand};
 use std::ffi::OsStr;
 use std::fs::read_to_string;
 use std::path::Path;
 
-type App = clap::App<'static, 'static>;
-
-pub fn run() {
+pub fn run() -> CliResult {
     let matches = build_app().get_matches();
 
     if let Some(filename) = matches.value_of("file") {
-        from_file(&filename).unwrap_or_else(|e| eprintln!("{}", e));
-        return;
+        return from_file(&filename);
     }
 
     match matches.subcommand() {
-        ("dialogure", _) => dialogure::exec(),
+        ("dialogure", _) => dialogure::exec()?,
         ("template", _) => template::exec(),
-        _ => build_app().print_help().expect("failed to print_help"),
+        _ => build_app().print_help()?,
     }
+
+    Ok(())
 }
 
-fn from_file(file_name: &str) -> Result<(), failure::Error> {
+fn from_file(file_name: &str) -> CliResult {
     let file_content = read_to_string(file_name)?;
 
     let extension = Path::new(file_name).extension();
@@ -32,7 +33,7 @@ fn from_file(file_name: &str) -> Result<(), failure::Error> {
     let issue_link: IssueLink = match extension.and_then(OsStr::to_str) {
         Some("toml") => toml::from_str(&file_content)?,
         Some("yaml") => serde_yaml::from_str(&file_content)?,
-        _ => failure::bail!("Unsupported extension"),
+        _ => return Err(CliError::UnsupportedExtension),
     };
 
     issue_link

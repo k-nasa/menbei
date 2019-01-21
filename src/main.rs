@@ -2,5 +2,8 @@ mod command;
 mod issue_link;
 
 fn main() {
-    command::run()
+    match command::run() {
+        Err(e) => eprintln!("{}", e),
+        Ok(_) => (),
+    };
 }
