@@ -107,7 +107,7 @@ mod tests {
         let issue_link = IssueLink::new(repository, title, body, assignees, labels, projects);
         let link = issue_link.generate_link();
 
-        assert_eq!(link, Ok("https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string()))
+        assert_eq!(link.unwrap(), "https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string())
     }
 
     #[test]
@@ -123,7 +123,7 @@ mod tests {
         let issue_link = IssueLink::new(empty_repository, title, body, assignees, labels, projects);
         let link = issue_link.generate_link();
 
-        assert_eq!(link, Err("repository is required!".to_string()));
+        assert!(link.is_err())
     }
 
     #[test]
@@ -140,7 +140,7 @@ mod tests {
             IssueLink::new(invalid_repository, title, body, assignees, labels, projects);
         let link = issue_link.generate_link();
 
-        assert_eq!(link, Err("repository is invalid!".to_string()));
+        assert!(link.is_err())
     }
 
     #[test]
@@ -179,7 +179,7 @@ mod tests {
         let issue_link: IssueLink = serde_yaml::from_str(&yaml).unwrap();
         let link = issue_link.generate_link();
 
-        assert_eq!(link, Ok("https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string()))
+        assert_eq!(link.unwrap(), "https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string())
     }
 
     #[test]
@@ -196,6 +196,6 @@ mod tests {
         let issue_link: IssueLink = toml::from_str(&yaml).unwrap();
         let link = issue_link.generate_link();
 
-        assert_eq!(link, Ok("https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string()))
+        assert_eq!(link.unwrap(), "https://github.com/k-nasa/menbei/issues/new?title=title&body=hogehoge&assignees=k-nasa,hoge&labels=bug,question&projects=k-nasa/menbei/1".to_string())
     }
 }
