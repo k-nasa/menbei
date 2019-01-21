@@ -3,16 +3,11 @@ mod template;
 
 use crate::issue_link::IssueLink;
 use clap::{crate_description, crate_name, crate_version, Arg, SubCommand};
-use failure::Fail;
 use std::ffi::OsStr;
 use std::fs::read_to_string;
 use std::path::Path;
 
 type App = clap::App<'static, 'static>;
-
-#[derive(Debug, Fail)]
-#[fail(display = "Unsupported extension")]
-struct UnsupportedExtension;
 
 pub fn run() {
     let matches = build_app().get_matches();
@@ -37,9 +32,7 @@ fn from_file(file_name: &str) -> Result<(), failure::Error> {
     let issue_link: IssueLink = match extension.and_then(OsStr::to_str) {
         Some("toml") => toml::from_str(&file_content)?,
         Some("yaml") => serde_yaml::from_str(&file_content)?,
-        _ => {
-            return Err(failure::Error::from(UnsupportedExtension));
-        }
+        _ => failure::bail!("Unsupported extension"),
     };
 
     issue_link
