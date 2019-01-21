@@ -1,5 +1,7 @@
 pub type App = clap::App<'static, 'static>;
 
+pub type CliResult = Result<(), CliError>;
+
 #[derive(Debug, failure::Fail)]
 pub enum CliError {
     #[fail(display = "{}", error)]
