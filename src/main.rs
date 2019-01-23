@@ -2,8 +2,9 @@ mod command;
 mod issue_link;
 
 fn main() {
-    match command::run() {
-        Err(e) => eprintln!("{}", e),
-        Ok(_) => (),
+    if let Err(e) = command::run() {
+        eprintln!("{}", e);
+
+        std::process::exit(1)
     };
 }
