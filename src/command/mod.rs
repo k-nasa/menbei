@@ -1,5 +1,4 @@
 mod dialogure;
-mod template;
 mod utils;
 
 use self::utils::*;
@@ -18,7 +17,6 @@ pub fn run() -> CliResult {
 
     match matches.subcommand() {
         ("dialogure", _) => dialogure::exec()?,
-        ("template", _) => template::exec(),
         _ => build_app().print_help()?,
     }
 
