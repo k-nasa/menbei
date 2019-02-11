@@ -49,13 +49,4 @@ fn build_app() -> App {
         .about(crate_description!())
         .arg(Arg::with_name("file").help("issue link definition file"))
         .subcommand(SubCommand::with_name("dialogure").about("Create an issue link interactively"))
-    // .subcommand(
-    //     SubCommand::with_name("template")
-    //         .about("Output a template file for creating an issue link")
-    //         .arg(
-    //             Arg::with_name("name")
-    //                 .help("File name to output")
-    //                 .required(true),
-    //         ),
-    // )
 }
