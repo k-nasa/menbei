@@ -10,7 +10,7 @@ keywords = ["cli"]
 edition = "2018"
 
 [dependencies]
-clap = "2.23.0"
+clap = "2.33.0"
 failure = "0.1.5"
 regex = "1.1.5"
 serde = "1.0"
